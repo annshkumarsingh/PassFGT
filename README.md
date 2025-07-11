@@ -1,12 +1,68 @@
-# React + Vite
+# PassFGT 🔐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PassFGT** is a sleek, full-stack password manager built with the MERN stack (MongoDB, Express, React, Node.js). It allows users to securely store, update, search, and delete passwords with a modern UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🔒 Add / Edit / Delete passwords
+- 🔍 Real-time search by website or username
+- 👁️‍🗨️ Copy to clipboard functionality
+- 💡 Toast notifications for feedback
+- 📱 Responsive and modern design
+- ☁️ Connected to MongoDB (Local database)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** React, Tailwind CSS, React Router, React Toastify
+- **Backend:** Node.js, Express, MongoDB
+- **Others:** UUID for unique IDs, Lordicon for icons
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js & npm
+- Git
+
+### Clone and Install
+```bash
+git clone https://github.com/your-username/PassFGT.git
+cd PassFGT
+npm install
+Set up .env
+Create a .env file in /backend with:
+
+ini
+Copy
+Edit
+MONGO_URI=your_mongodb_atlas_uri
+PORT=3000
+Run Backend
+bash
+Copy
+Edit
+cd backend
+node server.js
+Run Frontend
+bash
+Copy
+Edit
+cd frontend
+npm start
+
+
+🧠 Future Improvements
+User authentication (JWT or OAuth)
+
+Password encryption
+
+Deploy on Vercel/Netlify + Render/Railway
+
+
+🧑‍💻 Author
+Annsh Kumar Singh

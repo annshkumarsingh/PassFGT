@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.navlinks{
+    @apply py-[5px] px-[20px] rounded-2xl cursor-pointer hover:bg-gray-800;
+}

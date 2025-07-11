@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.cpybtn{
+    @apply h-[23px] absolute right-[5px] z-2;
+}

@@ -19,7 +19,7 @@ async function main() {
   const collection = db.collection('passwords');
 
   // GET request
-  app.get('/', async (req, res) => {
+  app.get('/api/passwords', async (req, res) => {
     try {
       const findResults = await collection.find({}).toArray();
       res.status(200).send(findResults)

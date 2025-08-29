@@ -6,14 +6,23 @@ import './Passwords.css';
 const Passwords = () => {
   const [passdata, setPassdata] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  
+  const [backendURL, setBackendURL] = useState(
+    localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
+  );
+
+  const handleBackendChange = (e) => {
+    setBackendURL(e.target.value);
+    localStorage.setItem("backendURL", e.target.value);
+  };
 
   useEffect(() => {
     fetchPasswords();
-  }, []);
+  }, [backendURL]);
 
   const fetchPasswords = async () => {
     try {
-      const response = await fetch("http://localhost:3000");
+      const response = await fetch(`${backendURL}/api/passwords`);
       const data = await response.json();
       setPassdata(data);
     } catch (error) {
@@ -69,52 +78,68 @@ const Passwords = () => {
         />
       </div>
 
+      <div className="mb-5 text-center">
+        <p className='text-emerald-500'>Connected to :</p>
+        <input
+          type="text"
+          value={backendURL}
+          onChange={handleBackendChange}
+          placeholder="Enter your backend URL (Leave blank for demo)"
+          className="px-4 py-2 rounded-md text-gray-200 w-[80%] text-center sm:w-[50%]"
+        />
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredData.map((item) => (
-          <div
-            key={item.id}
-            className="bg-neutral-700 border-1 border-neutral-500 rounded-xl p-5 hover:scale-[1.01] duration-200 overflow-auto max-h-[200px]"
-          >
-            <h3 className="text-xl font-bold text-emerald-500 mb-2 break-words">
-              <a
-                href={`https://${item.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                {item.url}
-              </a>
-            </h3>
+        {filteredData.map((item) => {
+          const safeUrl = item.url.startsWith("http://") || item.url.startsWith("https://") 
+            ? item.url 
+            : `https://${item.url}`;
+          return (
+            <div
+              key={item.id}
+              className="bg-neutral-700 border-1 border-neutral-500 rounded-xl p-5 hover:scale-[1.01] duration-200 overflow-auto max-h-[200px]"
+            >
+              <h3 className="text-xl font-bold text-emerald-500 mb-2 break-words">
+                <a
+                  href={safeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  {item.url}
+                </a>
+              </h3>
 
-            <div className="flex justify-between items-center mb-1">
-              <p className="break-words">
-                <span className="text-gray-400">Username:</span> {item.username}
-              </p>
-              <button onClick={() => handleCopy(item.username)} className="h-[23px]">
-                <lord-icon
-                  src="https://cdn.lordicon.com/hnqamtrw.json"
-                  trigger="hover"
-                  colors="primary:#d1f3fa,secondary:#00000"
-                  style={{ width: "20px", height: "20px" }}
-                ></lord-icon>
-              </button>
-            </div>
+              <div className="flex justify-between items-center mb-1">
+                <p className="break-words">
+                  <span className="text-gray-400">Username:</span> {item.username}
+                </p>
+                <button onClick={() => handleCopy(item.username)} className="h-[23px]">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/hnqamtrw.json"
+                    trigger="hover"
+                    colors="primary:#d1f3fa,secondary:#00000"
+                    style={{ width: "20px", height: "20px" }}
+                  ></lord-icon>
+                </button>
+              </div>
 
-            <div className="flex justify-between items-center">
-              <p className="break-words">
-                <span className="text-gray-400">Password:</span> {'*'.repeat(item.password.length)}
-              </p>
-              <button onClick={() => handleCopy(item.password)} className="h-[23px]">
-                <lord-icon
-                  src="https://cdn.lordicon.com/hnqamtrw.json"
-                  trigger="hover"
-                  colors="primary:#d1f3fa,secondary:#00000"
-                  style={{ width: "20px", height: "20px" }}
-                ></lord-icon>
-              </button>
+              <div className="flex justify-between items-center">
+                <p className="break-words">
+                  <span className="text-gray-400">Password:</span> {'*'.repeat(item.password.length)}
+                </p>
+                <button onClick={() => handleCopy(item.password)} className="h-[23px]">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/hnqamtrw.json"
+                    trigger="hover"
+                    colors="primary:#d1f3fa,secondary:#00000"
+                    style={{ width: "20px", height: "20px" }}
+                  ></lord-icon>
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {filteredData.length === 0 && (
           <div className="text-gray-400 text-center col-span-full">No results found.</div>
         )}

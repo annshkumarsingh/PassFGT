@@ -20,7 +20,7 @@ const Home = () => {
     }
 
     const [backendURL, setBackendURL] = useState(
-        localStorage.getItem("backendURL") || "https://passfgt.onrender.com/"
+        localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
     );
 
     const handleBackendChange = (e) => {

@@ -14,7 +14,7 @@ const Home = () => {
     const [editId, setEditId] = useState();
 
     const getPassdata = async () => {
-        let req = await fetch(`${backendURL}`);
+        let req = await fetch(`${backendURL}/api/passwords`);
         let data = await req.json();
         setPassdata(data);
     }

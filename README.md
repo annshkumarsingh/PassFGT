@@ -1,15 +1,15 @@
-🔑 PassFGT
+# PassFGT
 
 A sleek and secure Password Manager Web App built with the MERN stack, featuring CRUD functionality, password masking, copy-to-clipboard, search & filter, and cloud deployment.
 
 🌐 Live Demo: PassFGT on Render
 
-📌 Overview
+# Overview
 
 PassFGT is a full-stack password manager that lets users store, manage, and retrieve their credentials with ease.
 It is designed with simplicity, responsiveness, and security in mind — all in a minimal and modern UI.
 
-✨ Features
+# Features
 
 🔐 Add, Update, Delete Passwords with instant database sync
 
@@ -25,7 +25,7 @@ It is designed with simplicity, responsiveness, and security in mind — all in 
 
 ☁️ Deployed on Render (frontend + backend + MongoDB Atlas)
 
-🛠️ Tech Stack
+# Tech Stack
 Frontend
 
 ⚛️ React (with Hooks)
@@ -54,10 +54,10 @@ cd PassFGT
 
 Install dependencies
 
-# frontend
+# Frontend
 npm install
 
-# backend
+# Backend
 cd ../server
 npm install
 
@@ -71,10 +71,10 @@ PORT=3000
 
 Run locally
 
-# start backend
+# Start backend
 node server.js
 
-# start frontend
+# Start frontend
 npm run dev
 
 📂 Project Structure

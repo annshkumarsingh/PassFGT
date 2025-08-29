@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Passwords from "./pages/Passwords";
 import About from "./pages/About";
+import Footer from "./components/Footer"
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/about" element={<About />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

@@ -6,15 +6,8 @@ import './Passwords.css';
 const Passwords = () => {
   const [passdata, setPassdata] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const [backendURL, setBackendURL] = useState(
-    localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
-  );
 
-  const handleBackendChange = (e) => {
-    setBackendURL(e.target.value);
-    localStorage.setItem("backendURL", e.target.value);
-  };
+  const backendURL = localStorage.getItem("backendURL") || "https://passfgt.onrender.com";
 
   useEffect(() => {
     fetchPasswords();
@@ -75,17 +68,6 @@ const Passwords = () => {
           placeholder="Search by website or username"
           className="px-4 py-2 w-[80%] sm:w-[50%] border-1 border-gray-500 hover:border-gray-400 delay-15 duration-50 ease-in-out rounded-md text-white"
           onChange={handleSearch}
-        />
-      </div>
-
-      <div className="mb-5 text-center">
-        <p className='text-emerald-500'>Connected to :</p>
-        <input
-          type="text"
-          value={backendURL}
-          onChange={handleBackendChange}
-          placeholder="Enter your backend URL (Leave blank for demo)"
-          className="px-4 py-2 rounded-md text-gray-200 w-[80%] text-center sm:w-[50%]"
         />
       </div>
 

@@ -20,7 +20,7 @@ const Home = () => {
     }
 
     const [backendURL, setBackendURL] = useState(
-        localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
+        localStorage.getItem("backendURL") || "https://passfgt.onrender.com/"
     );
 
     const handleBackendChange = (e) => {
@@ -72,7 +72,7 @@ const Home = () => {
                 password: password
             }
             try {
-                const req = await fetch(`${backendURL}`, {
+                const req = await fetch(`${backendURL}/api/passwords`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -103,7 +103,7 @@ const Home = () => {
         }
 
         try {
-            const res = await fetch(`${backendURL}/${editId}`, {
+            const res = await fetch(`${backendURL}/api/passwords/${editId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -141,7 +141,7 @@ const Home = () => {
 
     const handleDelete = async (id, isdelete) => {
         try {
-            const req = await fetch(`${backendURL}/${id}`, {
+            const req = await fetch(`${backendURL}/api/passwords/${id}`, {
                 method: "DELETE"
             });
 

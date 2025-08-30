@@ -8,6 +8,7 @@ const Passwords = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const backendURL = localStorage.getItem("backendURL") || "https://passfgt.onrender.com";
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetchPasswords();
@@ -15,7 +16,12 @@ const Passwords = () => {
 
   const fetchPasswords = async () => {
     try {
-      const response = await fetch(`${backendURL}/api/passwords`);
+      const response = await fetch(`${backendURL}/api/passwords`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
+                    },
+                });
       const data = await response.json();
       setPassdata(data);
     } catch (error) {

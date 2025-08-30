@@ -13,8 +13,15 @@ const Home = () => {
     const [passdata, setPassdata] = useState([]);
     const [editId, setEditId] = useState();
 
+    const API_KEY = import.meta.env.VITE_API_KEY; // API key
+
     const getPassdata = async () => {
-        let req = await fetch(`${backendURL}/api/passwords`);
+        let req = await fetch(`${backendURL}/api/passwords`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
+                    },
+                });
         let data = await req.json();
         setPassdata(data);
     }
@@ -75,7 +82,8 @@ const Home = () => {
                 const req = await fetch(`${backendURL}/api/passwords`, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
                     },
                     body: JSON.stringify(newEntry)
                 });
@@ -106,7 +114,8 @@ const Home = () => {
             const res = await fetch(`${backendURL}/api/passwords/${editId}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY
                 },
                 body: JSON.stringify({
                     url,
@@ -142,7 +151,11 @@ const Home = () => {
     const handleDelete = async (id, isdelete) => {
         try {
             const req = await fetch(`${backendURL}/api/passwords/${id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY
+                },
             });
 
             if (req.ok) {

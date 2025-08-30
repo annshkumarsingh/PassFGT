@@ -13,7 +13,7 @@ const Home = () => {
     const [passdata, setPassdata] = useState([]);
     const [editId, setEditId] = useState();
 
-    const API_KEY = import.meta.env.VITE_API_KEY; // API key
+    const API_KEY = import.meta.env.API_KEY; // API key
 
     const getPassdata = async () => {
         let req = await fetch(`${backendURL}/api/passwords`, {

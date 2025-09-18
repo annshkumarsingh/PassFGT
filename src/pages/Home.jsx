@@ -12,8 +12,11 @@ const Home = () => {
     const [password, setPassword] = useState("")
     const [passdata, setPassdata] = useState([]);
     const [editId, setEditId] = useState();
-
-    const API_KEY = import.meta.env.API_KEY; // API key
+    
+    const [backendURL, setBackendURL] = useState(
+        localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
+    );
+    const API_KEY = import.meta.env.VITE_API_KEY; // API key
 
     const getPassdata = async () => {
         let req = await fetch(`${backendURL}/api/passwords`, {
@@ -26,9 +29,6 @@ const Home = () => {
         setPassdata(data);
     }
 
-    const [backendURL, setBackendURL] = useState(
-        localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
-    );
 
     const handleBackendChange = (e) => {
         setBackendURL(e.target.value);
@@ -39,7 +39,7 @@ const Home = () => {
 
     useEffect(() => {
         getPassdata();
-    }, [])
+    }, [backendURL,API_KEY])
 
     const resetFields = () => {
         setUrl("");

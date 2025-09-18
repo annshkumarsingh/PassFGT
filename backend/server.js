@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 // Middleware -> To check API key
 app.use((req, res, next) => {
   const apiKey = req.headers["x-api-key"];
-  if (!apiKey || apiKey !== process.env.API_KEY) {
+  if (!apiKey || apiKey !== process.env.VITE_API_KEY) {
     return res.status(403).json({ error: "Unauthorized" });
   }
   next();

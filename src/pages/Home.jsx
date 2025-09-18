@@ -16,6 +16,7 @@ const Home = () => {
     const [backendURL, setBackendURL] = useState(
         localStorage.getItem("backendURL") || "https://passfgt.onrender.com"
     );
+    
     const API_KEY = import.meta.env.VITE_API_KEY; // API key
 
     const getPassdata = async () => {

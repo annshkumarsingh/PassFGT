@@ -12,9 +12,8 @@ export default function authRoutes(db) {
   const users = db.collection("users");
 
   // Signup
-  router.post("/signup", async (req, res) => {
+  router.post("/signup", async (req, res, next) => {
     try {
-      console.log("signup route hit!")
       const { username, password } = req.body;
 
       // Check if user already exists
@@ -29,14 +28,14 @@ export default function authRoutes(db) {
       // Insert new user
       await users.insertOne({ username, password: hashed });
       res.status(201).json({ msg: "User created" });
-      
+
     } catch (err) {
-      res.status(500).json({ error: "Error creating user" });
+      next(err);
     }
   });
 
   // Login
-  router.post("/login", async (req, res) => {
+  router.post("/login", async (req, res, next) => {
     try {
       const { username, password } = req.body;
 
@@ -56,7 +55,7 @@ export default function authRoutes(db) {
       res.json({ token });
 
     } catch (err) {
-      res.status(500).json({ error: "Error logging in" });
+      next(err);
     }
   });
 

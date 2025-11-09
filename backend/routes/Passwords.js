@@ -10,19 +10,19 @@ export default function passRoutes(db) {
   const collection = db.collection("passwords");
 
   // GET /api/passwords  (when mounted at /api/passwords)
-  router.get("/", auth, async (req, res) => {
+  router.get("/", auth, async (req, res, next) => {
     try {
       const passwords = await collection
         .find({ userId: req.user.id })
         .toArray();
       res.json(passwords);
     } catch (err) {
-      res.status(500).json({ error: "Error fetching passwords" });
+      next(err);
     }
   });
 
   // POST /api/passwords
-  router.post("/", auth, async (req, res) => {
+  router.post("/", auth, async (req, res, next) => {
     try {
       const { url, username, password } = req.body;
       await collection.insertOne({
@@ -33,13 +33,13 @@ export default function passRoutes(db) {
         createdAt: new Date(),
       });
       res.status(201).json({ msg: "Successfully Added!" });
-    } catch (error) {
-      res.status(500).json({ error: "Error adding password." });
+    } catch (err) {
+      next(err);
     }
   });
 
   // PUT /api/passwords/:id
-  router.put("/:id", auth, async (req, res) => {
+  router.put("/:id", auth, async (req, res, next) => {
     try {
       const id = req.params.id;
       const { url, username, password } = req.body;
@@ -50,13 +50,13 @@ export default function passRoutes(db) {
       );
 
       res.status(200).json({ msg: "Successfully updated!" });
-    } catch (error) {
-      res.status(500).json({ error: "Error updating password." });
+    } catch (err) {
+      next(err);
     }
   });
 
   // DELETE /api/passwords/:id
-  router.delete("/:id", auth, async (req, res) => {
+  router.delete("/:id", auth, async (req, res, next) => {
     try {
       const id = req.params.id;
       await collection.deleteOne({
@@ -64,8 +64,8 @@ export default function passRoutes(db) {
         userId: req.user.id,
       });
       res.status(200).json({ msg: "Successfully deleted!" });
-    } catch (error) {
-      res.status(500).json({ error: "Error deleting password." });
+    } catch (err) {
+      next(err);
     }
   });
 

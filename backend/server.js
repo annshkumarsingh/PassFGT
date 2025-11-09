@@ -8,7 +8,22 @@ import passRoutes from "./routes/Passwords.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = [
+  "https://passfgt.vercel.app",
+  "http://localhost:5173",
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
 
 const client = new MongoClient(process.env.MONGO_URI);
 const dbname = "passfgt";
@@ -30,5 +45,10 @@ async function main() {
     console.log(`Server running at port ${port}`);
   });
 }
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ error: "Something went wrong on the server" });
+});
 
 main().catch(console.error);

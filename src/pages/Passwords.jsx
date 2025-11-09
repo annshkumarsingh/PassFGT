@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './Passwords.css';
+import '../stylesheets/Passwords.css';
 
 const Passwords = () => {
   const [passdata, setPassdata] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const backendURL = localStorage.getItem("backendURL") || "https://passfgt.onrender.com";
-  const API_KEY = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetchPasswords();
@@ -16,18 +15,34 @@ const Passwords = () => {
 
   const fetchPasswords = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`${backendURL}/api/passwords`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-api-key": API_KEY
-                    },
-                });
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error("Fetch error:", response.status);
+        // handle auth errors
+        if (response.status === 401 || response.status === 403) {
+          toast.error("Not authorized — please log in.", { theme: "dark" });
+          localStorage.removeItem("token");
+        }
+        setPassdata([]);
+        return;
+      }
+
       const data = await response.json();
-      setPassdata(data);
+      if (Array.isArray(data)) setPassdata(data);
+      else setPassdata([]);
     } catch (error) {
       console.error("Failed to fetch passwords:", error);
+      setPassdata([]);
     }
   };
+
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
@@ -79,12 +94,12 @@ const Passwords = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredData.map((item) => {
-          const safeUrl = item.url.startsWith("http://") || item.url.startsWith("https://") 
-            ? item.url 
+          const safeUrl = item.url.startsWith("http://") || item.url.startsWith("https://")
+            ? item.url
             : `https://${item.url}`;
           return (
             <div
-              key={item.id}
+              key={item._id}
               className="bg-neutral-700 border-1 border-neutral-500 rounded-xl p-5 hover:scale-[1.01] duration-200 overflow-auto max-h-[200px]"
             >
               <h3 className="text-xl font-bold text-emerald-500 mb-2 break-words">

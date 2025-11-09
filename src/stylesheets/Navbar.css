@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-.navlinks a {
+.navlinks {
     @apply block py-[0.5rem] px-[1rem] transition-colors duration-200 ease-in-out;
 }
 
-.navlinks a:hover {
+.navlinks:hover {
   @apply text-emerald-400;
 }

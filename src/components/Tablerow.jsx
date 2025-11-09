@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Tablerow.css";
+import "../stylesheets/Tablerow.css";
 
 const Tablerow = ({ id, url, username, password, notify, handleEdit, handleDelete, editId }) => {
   const handleCopy = (text) => {

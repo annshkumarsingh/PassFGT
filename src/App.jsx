@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Passwords from "./pages/Passwords";
 import About from "./pages/About";
+import Login from "./pages/Login";
 import Footer from "./components/Footer"
 import './App.css';
 
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/passwords" element={<Passwords />} />
             <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
         <Footer />

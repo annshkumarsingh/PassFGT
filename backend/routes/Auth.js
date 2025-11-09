@@ -9,7 +9,7 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export default function authRoutes(db) {
-  const users = db.collection("users"); // "users" collection
+  const users = db.collection("users");
 
   // Signup
   router.post("/signup", async (req, res) => {
@@ -29,6 +29,7 @@ export default function authRoutes(db) {
       // Insert new user
       await users.insertOne({ username, password: hashed });
       res.status(201).json({ msg: "User created" });
+      
     } catch (err) {
       res.status(500).json({ error: "Error creating user" });
     }
@@ -50,10 +51,10 @@ export default function authRoutes(db) {
         return res.status(400).json({ error: "Invalid credentials" });
       }
 
-      // Sign JWT
-      // routes/Auth.js (login)
-      const token = jwt.sign({ id: user._id.toString() }, JWT_SECRET, { expiresIn: "1h" });
+      // Signing JWT
+      const token = jwt.sign({ id: user._id.toString() }, JWT_SECRET, { expiresIn: "1d" });
       res.json({ token });
+
     } catch (err) {
       res.status(500).json({ error: "Error logging in" });
     }

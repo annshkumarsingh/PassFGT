@@ -1,4 +1,3 @@
-import React from 'react';
 import "../stylesheets/Tablerow.css";
 
 const Tablerow = ({ id, url, username, password, notify, handleEdit, handleDelete, editId }) => {
@@ -9,7 +8,7 @@ const Tablerow = ({ id, url, username, password, notify, handleEdit, handleDelet
 
   const isEditing = id === editId;
 
-  // Ensure url is valid before creating a clickable link
+  // Ensure url is valid
   const safeUrl = url.startsWith("http://") || url.startsWith("https://") ? url : `https://${url}`;
 
   return (

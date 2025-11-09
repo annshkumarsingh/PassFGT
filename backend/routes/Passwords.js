@@ -1,4 +1,3 @@
-// routes/Passwords.js
 import express from "express";
 import dotenv from "dotenv";
 import { ObjectId } from "mongodb";
@@ -6,9 +5,6 @@ import { verifyToken as auth } from "../middleware/Auth.js";
 
 dotenv.config();
 const router = express.Router();
-
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error("Missing JWT_SECRET in .env file");
 
 export default function passRoutes(db) {
   const collection = db.collection("passwords");

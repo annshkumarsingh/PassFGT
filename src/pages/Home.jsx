@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Tablerow from '../components/Tablerow'
-import '../stylesheets/Home.css'
 import { ToastContainer, toast } from 'react-toastify';
+import '../stylesheets/Home.css'
 
 const Home = () => {
 
